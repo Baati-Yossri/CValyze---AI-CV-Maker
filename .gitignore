@@ -1,1 +1,6 @@
 .env
+.env.*
+.env (Copy)
+.env Copy
+.env - Copy
+*.env.bak
