@@ -35,7 +35,6 @@ def generate_summary_gemini(current_info, job_offer):
 def generate_cv_gemini(data):
     client = get_gemini_client()
     
-    # Load the template
     template_path = os.path.join(os.path.dirname(__file__), 'templates', 'cv_template.tex')
     with open(template_path, 'r') as f:
         template_content = f.read()
@@ -139,7 +138,6 @@ def compile_latex_to_pdf(latex_code):
             os.makedirs(output_dir, exist_ok=True)
             final_pdf_path = os.path.join(output_dir, 'cv.pdf')
             
-            # Copy/Move
             import shutil
             shutil.copy(pdf_path, final_pdf_path)
             

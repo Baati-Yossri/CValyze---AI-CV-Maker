@@ -40,16 +40,13 @@ def generate_cv():
     data = request.json
     
     try:
-        # 1. Generate LaTeX code using Gemini
         latex_code = generate_cv_gemini(data)
         
-        # 2. Compile to PDF
         pdf_path = compile_latex_to_pdf(latex_code)
         
         if pdf_path and os.path.exists(pdf_path):
             return send_file(pdf_path, as_attachment=True, download_name='cv.pdf')
         else:
-            # Fallback: Return the LaTeX code if PDF generation fails (e.g. no pdflatex)
             return jsonify({
                 'warning': 'PDF generation failed (pdflatex might be missing). Here is the LaTeX code.',
                 'latex_code': latex_code
