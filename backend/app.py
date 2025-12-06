@@ -25,12 +25,13 @@ def generate_summary():
     data = request.json
     job_offer = data.get('job_offer')
     current_info = data.get('current_info')
+    language = data.get('current_info', {}).get('language', 'English')
     
     if not job_offer:
         return jsonify({'error': 'Job offer/Objective is required'}), 400
 
     try:
-        summary = generate_summary_gemini(current_info, job_offer)
+        summary = generate_summary_gemini(current_info, job_offer, language)
         return jsonify({'summary': summary})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -38,9 +39,10 @@ def generate_summary():
 @app.route('/api/generate-cv', methods=['POST'])
 def generate_cv():
     data = request.json
+    language = data.get('current_info', {}).get('language', 'English')
     
     try:
-        latex_code = generate_cv_gemini(data)
+        latex_code = generate_cv_gemini(data, language)
         
         pdf_path = compile_latex_to_pdf(latex_code)
         

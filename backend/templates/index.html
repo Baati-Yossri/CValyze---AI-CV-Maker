@@ -95,22 +95,55 @@
         </div>
     </header>
 
-    <main class="container mx-auto p-4 md:p-8 pb-24">
-        <div class="max-w-4xl mx-auto">
+    <main class="container mx-auto p-4 md:p-8 pb-24 min-h-[calc(100vh-4rem)]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 h-full">
 
-            <!-- Form Container -->
-            <div id="form-container" class="flex flex-col gap-4">
+            <!-- Sidebar Navigation -->
+            <aside class="hidden lg:block lg:col-span-3 border-r border-border-light dark:border-border-dark pr-6">
+                <nav class="flex flex-col gap-2 sticky top-24">
+                    <button onclick="goToStep(0)" id="nav-step-0"
+                        class="nav-item text-left px-4 py-3 rounded-lg font-medium transition-colors bg-primary/10 text-primary">
+                        1. Personal Information
+                    </button>
+                    <button onclick="goToStep(1)" id="nav-step-1"
+                        class="nav-item text-left px-4 py-3 rounded-lg font-medium text-subtle-light dark:text-subtle-dark hover:bg-background-light dark:hover:bg-panel-dark transition-colors">
+                        2. Career Objective
+                    </button>
+                    <button onclick="goToStep(2)" id="nav-step-2"
+                        class="nav-item text-left px-4 py-3 rounded-lg font-medium text-subtle-light dark:text-subtle-dark hover:bg-background-light dark:hover:bg-panel-dark transition-colors">
+                        3. Experience
+                    </button>
+                    <button onclick="goToStep(3)" id="nav-step-3"
+                        class="nav-item text-left px-4 py-3 rounded-lg font-medium text-subtle-light dark:text-subtle-dark hover:bg-background-light dark:hover:bg-panel-dark transition-colors">
+                        4. Education
+                    </button>
+                    <button onclick="goToStep(4)" id="nav-step-4"
+                        class="nav-item text-left px-4 py-3 rounded-lg font-medium text-subtle-light dark:text-subtle-dark hover:bg-background-light dark:hover:bg-panel-dark transition-colors">
+                        5. Skills
+                    </button>
+                    <button onclick="goToStep(5)" id="nav-step-5"
+                        class="nav-item text-left px-4 py-3 rounded-lg font-medium text-subtle-light dark:text-subtle-dark hover:bg-background-light dark:hover:bg-panel-dark transition-colors">
+                        6. Languages
+                    </button>
+                    <button onclick="goToStep(6)" id="nav-step-6"
+                        class="nav-item text-left px-4 py-3 rounded-lg font-medium text-subtle-light dark:text-subtle-dark hover:bg-background-light dark:hover:bg-panel-dark transition-colors">
+                        7. Certifications
+                    </button>
+                    <button onclick="goToStep(7)" id="nav-step-7"
+                        class="nav-item text-left px-4 py-3 rounded-lg font-medium text-subtle-light dark:text-subtle-dark hover:bg-background-light dark:hover:bg-panel-dark transition-colors">
+                        8. Projects
+                    </button>
+                </nav>
+            </aside>
 
-                <!-- Personal Info -->
-                <details
-                    class="flex flex-col rounded-lg border border-border-light dark:border-border-dark bg-panel-light dark:bg-panel-dark shadow-sm group"
-                    open>
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
-                        <h3 class="text-lg font-semibold text-text-light dark:text-text-dark">Personal Information</h3>
-                        <span
-                            class="material-symbols-outlined text-subtle-light dark:text-subtle-dark group-open:rotate-180 transition-transform">expand_more</span>
-                    </summary>
-                    <div class="px-4 pb-4">
+            <!-- Main Wizard Area -->
+            <div class="lg:col-span-9" id="form-container">
+
+                <!-- Step 1: Personal Info -->
+                <div id="step-0" class="wizard-step">
+                    <h2 class="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">Personal Information</h2>
+                    <div
+                        class="bg-panel-light dark:bg-panel-dark rounded-lg border border-border-light dark:border-border-dark p-6 shadow-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <label class="flex flex-col col-span-1">
                                 <p class="text-sm font-medium pb-2">Full Name</p><input id="full_name"
@@ -142,20 +175,28 @@
                                     class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary h-12 placeholder:text-subtle-light dark:placeholder:text-subtle-dark px-3 text-base"
                                     placeholder="yourportfolio.com" />
                             </label>
+                            <label class="flex flex-col col-span-2 md:col-span-2">
+                                <p class="text-sm font-medium pb-2">CV Language</p>
+                                <select id="cv_language"
+                                    class="form-select w-full rounded-lg text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary h-12 px-3 text-base">
+                                    <option value="English">English</option>
+                                    <option value="French">French</option>
+                                </select>
+                            </label>
                         </div>
                     </div>
-                </details>
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-end gap-3 mt-8">
+                        <button onclick="nextStep()"
+                            class="px-6 py-3 rounded-full bg-primary text-white font-bold shadow-lg hover:shadow-xl transition-all">Continue</button>
+                    </div>
+                </div>
 
-                <!-- Career Objective -->
-                <details
-                    class="flex flex-col rounded-lg border border-border-light dark:border-border-dark bg-panel-light dark:bg-panel-dark shadow-sm group">
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
-                        <h3 class="text-lg font-semibold text-text-light dark:text-text-dark">Career Objective / Job
-                            Offer</h3>
-                        <span
-                            class="material-symbols-outlined text-subtle-light dark:text-subtle-dark group-open:rotate-180 transition-transform">expand_more</span>
-                    </summary>
-                    <div class="px-4 pb-4">
+                <!-- Step 2: Career Objective -->
+                <div id="step-1" class="wizard-step hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">Career Objective</h2>
+                    <div
+                        class="bg-panel-light dark:bg-panel-dark rounded-lg border border-border-light dark:border-border-dark p-6 shadow-sm">
                         <textarea id="job_offer"
                             class="form-textarea w-full rounded-lg text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary h-32 placeholder:text-subtle-light dark:placeholder:text-subtle-dark p-3 text-base"
                             placeholder="Paste the job offer here or write your career objective..."></textarea>
@@ -171,51 +212,60 @@
                                 placeholder="AI generated summary will appear here..."></textarea>
                         </div>
                     </div>
-                </details>
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between gap-3 mt-8">
+                        <button onclick="prevStep()"
+                            class="px-6 py-3 rounded-full text-subtle-light dark:text-subtle-dark border border-border-light dark:border-border-dark font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">Back</button>
+                        <button onclick="nextStep()"
+                            class="px-6 py-3 rounded-full bg-primary text-white font-bold shadow-lg hover:shadow-xl transition-all">Continue</button>
+                    </div>
+                </div>
 
-                <!-- Experience -->
-                <details
-                    class="flex flex-col rounded-lg border border-border-light dark:border-border-dark bg-panel-light dark:bg-panel-dark shadow-sm group">
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
-                        <h3 class="text-lg font-semibold text-text-light dark:text-text-dark">Experience</h3>
-                        <span
-                            class="material-symbols-outlined text-subtle-light dark:text-subtle-dark group-open:rotate-180 transition-transform">expand_more</span>
-                    </summary>
-                    <div class="px-4 pb-4 flex flex-col gap-4">
+                <!-- Step 3: Experience -->
+                <div id="step-2" class="wizard-step hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">Experience</h2>
+                    <div
+                        class="bg-panel-light dark:bg-panel-dark rounded-lg border border-border-light dark:border-border-dark p-6 shadow-sm flex flex-col gap-4">
                         <div id="experience-list" class="flex flex-col gap-4"></div>
                         <button id="btn-add-experience"
                             class="mt-2 flex h-10 items-center justify-center gap-2 rounded-full border-2 border-dashed border-border-light dark:border-border-dark px-4 text-sm font-bold text-subtle-light dark:text-subtle-dark hover:border-primary hover:text-primary">
                             <span class="material-symbols-outlined text-lg">add</span><span>Add Experience</span>
                         </button>
                     </div>
-                </details>
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between gap-3 mt-8">
+                        <button onclick="prevStep()"
+                            class="px-6 py-3 rounded-full text-subtle-light dark:text-subtle-dark border border-border-light dark:border-border-dark font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">Back</button>
+                        <button onclick="nextStep()"
+                            class="px-6 py-3 rounded-full bg-primary text-white font-bold shadow-lg hover:shadow-xl transition-all">Continue</button>
+                    </div>
+                </div>
 
-                <!-- Education -->
-                <details
-                    class="flex flex-col rounded-lg border border-border-light dark:border-border-dark bg-panel-light dark:bg-panel-dark shadow-sm group">
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
-                        <h3 class="text-lg font-semibold text-text-light dark:text-text-dark">Education</h3>
-                        <span
-                            class="material-symbols-outlined text-subtle-light dark:text-subtle-dark group-open:rotate-180 transition-transform">expand_more</span>
-                    </summary>
-                    <div class="px-4 pb-4 flex flex-col gap-4">
+                <!-- Step 4: Education -->
+                <div id="step-3" class="wizard-step hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">Education</h2>
+                    <div
+                        class="bg-panel-light dark:bg-panel-dark rounded-lg border border-border-light dark:border-border-dark p-6 shadow-sm flex flex-col gap-4">
                         <div id="education-list" class="flex flex-col gap-4"></div>
                         <button id="btn-add-education"
                             class="mt-2 flex h-10 items-center justify-center gap-2 rounded-full border-2 border-dashed border-border-light dark:border-border-dark px-4 text-sm font-bold text-subtle-light dark:text-subtle-dark hover:border-primary hover:text-primary">
                             <span class="material-symbols-outlined text-lg">add</span><span>Add Education</span>
                         </button>
                     </div>
-                </details>
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between gap-3 mt-8">
+                        <button onclick="prevStep()"
+                            class="px-6 py-3 rounded-full text-subtle-light dark:text-subtle-dark border border-border-light dark:border-border-dark font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">Back</button>
+                        <button onclick="nextStep()"
+                            class="px-6 py-3 rounded-full bg-primary text-white font-bold shadow-lg hover:shadow-xl transition-all">Continue</button>
+                    </div>
+                </div>
 
-                <!-- Skills -->
-                <details
-                    class="flex flex-col rounded-lg border border-border-light dark:border-border-dark bg-panel-light dark:bg-panel-dark shadow-sm group">
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
-                        <h3 class="text-lg font-semibold text-text-light dark:text-text-dark">Skills</h3>
-                        <span
-                            class="material-symbols-outlined text-subtle-light dark:text-subtle-dark group-open:rotate-180 transition-transform">expand_more</span>
-                    </summary>
-                    <div class="px-4 pb-4">
+                <!-- Step 5: Skills -->
+                <div id="step-4" class="wizard-step hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">Skills</h2>
+                    <div
+                        class="bg-panel-light dark:bg-panel-dark rounded-lg border border-border-light dark:border-border-dark p-6 shadow-sm">
                         <div id="skills-list"
                             class="flex flex-wrap gap-2 p-2 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark mb-2">
                         </div>
@@ -227,58 +277,74 @@
                                 class="h-10 px-4 rounded-lg bg-primary text-white font-bold hover:bg-primary/90">Add</button>
                         </div>
                     </div>
-                </details>
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between gap-3 mt-8">
+                        <button onclick="prevStep()"
+                            class="px-6 py-3 rounded-full text-subtle-light dark:text-subtle-dark border border-border-light dark:border-border-dark font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">Back</button>
+                        <button onclick="nextStep()"
+                            class="px-6 py-3 rounded-full bg-primary text-white font-bold shadow-lg hover:shadow-xl transition-all">Continue</button>
+                    </div>
+                </div>
 
-                <!-- Languages -->
-                <details
-                    class="flex flex-col rounded-lg border border-border-light dark:border-border-dark bg-panel-light dark:bg-panel-dark shadow-sm group">
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
-                        <h3 class="text-lg font-semibold text-text-light dark:text-text-dark">Languages</h3>
-                        <span
-                            class="material-symbols-outlined text-subtle-light dark:text-subtle-dark group-open:rotate-180 transition-transform">expand_more</span>
-                    </summary>
-                    <div class="px-4 pb-4 flex flex-col gap-4">
+                <!-- Step 6: Languages -->
+                <div id="step-5" class="wizard-step hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">Languages</h2>
+                    <div
+                        class="bg-panel-light dark:bg-panel-dark rounded-lg border border-border-light dark:border-border-dark p-6 shadow-sm flex flex-col gap-4">
                         <div id="languages-list" class="flex flex-col gap-4"></div>
                         <button id="btn-add-language"
                             class="mt-2 flex h-10 items-center justify-center gap-2 rounded-full border-2 border-dashed border-border-light dark:border-border-dark px-4 text-sm font-bold text-subtle-light dark:text-subtle-dark hover:border-primary hover:text-primary">
                             <span class="material-symbols-outlined text-lg">add</span><span>Add Language</span>
                         </button>
                     </div>
-                </details>
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between gap-3 mt-8">
+                        <button onclick="prevStep()"
+                            class="px-6 py-3 rounded-full text-subtle-light dark:text-subtle-dark border border-border-light dark:border-border-dark font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">Back</button>
+                        <button onclick="nextStep()"
+                            class="px-6 py-3 rounded-full bg-primary text-white font-bold shadow-lg hover:shadow-xl transition-all">Continue</button>
+                    </div>
+                </div>
 
-                <!-- Certifications -->
-                <details
-                    class="flex flex-col rounded-lg border border-border-light dark:border-border-dark bg-panel-light dark:bg-panel-dark shadow-sm group">
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
-                        <h3 class="text-lg font-semibold text-text-light dark:text-text-dark">Certifications</h3>
-                        <span
-                            class="material-symbols-outlined text-subtle-light dark:text-subtle-dark group-open:rotate-180 transition-transform">expand_more</span>
-                    </summary>
-                    <div class="px-4 pb-4 flex flex-col gap-4">
+                <!-- Step 7: Certifications -->
+                <div id="step-6" class="wizard-step hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">Certifications</h2>
+                    <div
+                        class="bg-panel-light dark:bg-panel-dark rounded-lg border border-border-light dark:border-border-dark p-6 shadow-sm flex flex-col gap-4">
                         <div id="certifications-list" class="flex flex-col gap-4"></div>
                         <button id="btn-add-certification"
                             class="mt-2 flex h-10 items-center justify-center gap-2 rounded-full border-2 border-dashed border-border-light dark:border-border-dark px-4 text-sm font-bold text-subtle-light dark:text-subtle-dark hover:border-primary hover:text-primary">
                             <span class="material-symbols-outlined text-lg">add</span><span>Add Certification</span>
                         </button>
                     </div>
-                </details>
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between gap-3 mt-8">
+                        <button onclick="prevStep()"
+                            class="px-6 py-3 rounded-full text-subtle-light dark:text-subtle-dark border border-border-light dark:border-border-dark font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">Back</button>
+                        <button onclick="nextStep()"
+                            class="px-6 py-3 rounded-full bg-primary text-white font-bold shadow-lg hover:shadow-xl transition-all">Continue</button>
+                    </div>
+                </div>
 
-                <!-- Projects -->
-                <details
-                    class="flex flex-col rounded-lg border border-border-light dark:border-border-dark bg-panel-light dark:bg-panel-dark shadow-sm group">
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
-                        <h3 class="text-lg font-semibold text-text-light dark:text-text-dark">Projects</h3>
-                        <span
-                            class="material-symbols-outlined text-subtle-light dark:text-subtle-dark group-open:rotate-180 transition-transform">expand_more</span>
-                    </summary>
-                    <div class="px-4 pb-4 flex flex-col gap-4">
+                <!-- Step 8: Projects -->
+                <div id="step-7" class="wizard-step hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-text-light dark:text-text-dark">Projects</h2>
+                    <div
+                        class="bg-panel-light dark:bg-panel-dark rounded-lg border border-border-light dark:border-border-dark p-6 shadow-sm flex flex-col gap-4">
                         <div id="projects-list" class="flex flex-col gap-4"></div>
                         <button id="btn-add-project"
                             class="mt-2 flex h-10 items-center justify-center gap-2 rounded-full border-2 border-dashed border-border-light dark:border-border-dark px-4 text-sm font-bold text-subtle-light dark:text-subtle-dark hover:border-primary hover:text-primary">
                             <span class="material-symbols-outlined text-lg">add</span><span>Add Project</span>
                         </button>
                     </div>
-                </details>
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between gap-3 mt-8">
+                        <button onclick="prevStep()"
+                            class="px-6 py-3 rounded-full text-subtle-light dark:text-subtle-dark border border-border-light dark:border-border-dark font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">Back</button>
+                        <!-- Note: The final Generate CV in footer is global, but we can have a finish button here too if needed, or just let them use the footer -->
+                        <div class="w-10"></div> <!-- Spacer to align back button left -->
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -305,6 +371,61 @@
     </footer>
 
     <script>
+        // --- Wizard Navigation Logic ---
+        let currentStep = 0;
+        const totalSteps = 8; // Steps 0 to 7
+
+        function showStep(index) {
+            // Validate index
+            if (index < 0 || index >= totalSteps) return;
+
+            // Hide all steps
+            document.querySelectorAll('.wizard-step').forEach(el => el.classList.add('hidden'));
+            // Show target step
+            const stepId = 'step-' + index;
+            const stepEl = document.getElementById(stepId);
+            if (stepEl) stepEl.classList.remove('hidden');
+
+            // Update Sidebar Active State
+            document.querySelectorAll('.nav-item').forEach((el, i) => {
+                if (i === index) {
+                    // Active Styling
+                    el.classList.add('bg-primary/10', 'text-primary');
+                    el.classList.remove('text-subtle-light', 'dark:text-subtle-dark', 'hover:bg-background-light', 'dark:hover:bg-panel-dark');
+                } else {
+                    // Inactive Styling
+                    el.classList.remove('bg-primary/10', 'text-primary');
+                    el.classList.add('text-subtle-light', 'dark:text-subtle-dark', 'hover:bg-background-light', 'dark:hover:bg-panel-dark');
+                }
+            });
+
+            currentStep = index;
+
+            // Scroll to top for better UX
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps - 1) {
+                showStep(currentStep + 1);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        function goToStep(index) {
+            showStep(index);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showStep(0);
+        });
+
         // --- Dynamic Form Logic ---
 
         // Add Experience
@@ -471,7 +592,8 @@
                         link: el.querySelector('.proj-link').value,
                         description: el.querySelector('.proj-desc').value
                     })),
-                    generated_summary: document.getElementById('generated_summary').value
+                    generated_summary: document.getElementById('generated_summary').value,
+                    language: document.getElementById('cv_language').value
                 },
                 job_offer: document.getElementById('job_offer').value
             };

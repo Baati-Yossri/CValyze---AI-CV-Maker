@@ -10,7 +10,7 @@ def get_gemini_client():
         raise ValueError("GEMINI_API_KEY not found in environment variables")
     return genai.Client(api_key=api_key)
 
-def generate_summary_gemini(current_info, job_offer):
+def generate_summary_gemini(current_info, job_offer, language="English"):
     client = get_gemini_client()
     
     prompt = f"""
@@ -22,8 +22,12 @@ def generate_summary_gemini(current_info, job_offer):
     Target Job Offer / Objective:
     {job_offer}
     
+    Target Language: {language}
+    
     Task:
     Write a professional, compelling, and ATS-friendly professional summary (2-4 sentences) for this user's CV, tailored specifically to the target job offer/objective. Highlight relevant skills and experiences from their current info that match the job requirements.
+    
+    IMPORTANT: The output MUST be in {language}.
     """
     
     response = client.models.generate_content(
@@ -32,7 +36,7 @@ def generate_summary_gemini(current_info, job_offer):
     )
     return response.text.strip()
 
-def generate_cv_gemini(data):
+def generate_cv_gemini(data, language="English"):
     client = get_gemini_client()
     
     template_path = os.path.join(os.path.dirname(__file__), 'templates', 'cv_template.tex')
@@ -48,21 +52,26 @@ Your job is to generate a perfectly formatted, professional, ATS-friendly LaTeX 
 USER DATA (to be cleaned and expanded):
 {data}
 
+TARGET LANGUAGE: {language}
+
 LATEX TEMPLATE:
 {template_content}
 ---------------------------------------------
 
 MANDATORY RULES:
 
-1. **Fix Language & Grammar**
+1. **Language & Grammar**
+   - The entire content of the CV (except for proper nouns like company names) MUST be in {language}.
+   - Translate section headers, descriptions, and skills if necessary to match {language}.
    - Correct all grammar, spelling, and punctuation errors.
-   - Rewrite poorly phrased content to sound professional and clear.
-   - Expand shorthand (example: "proj", "int.", "uni") into full words.
-   - Expand abbreviations (e.g., ISSAT → Institut Supérieur des Sciences Appliquées et de Technologie) using intelligent inference.
-   - Ensure consistent tense, formatting, and capitalization.
+   - Resize text to sound professional and clear in {language}.
 
-2. **Professionalization & Detail Enhancement**
-   - Improve bullet points by making them achievement-oriented when possible.
+2. **Professionalization & Quantified Achievements**
+   - **QUANTIFY IMPACT**: aggressively look for opportunities to add metrics.
+     - Example: Change "Sold products" to "Generated sales revenue..." or "Increased sales volume by...".
+     - If the user provides numbers, highlight them.
+     - If exact numbers are missing, use result-oriented language (e.g., "Significantly reduced," "Maximized," "Doubled").
+   - Improve bullet points by making them achievement-oriented.
    - Keep descriptions concise, factual, and ATS-friendly.
    - Expand incomplete sentences into full, well-structured statements.
    - If the user provides very short information (e.g., “web dev”), expand to a more complete form (“Web Developer specializing in …”).
@@ -72,12 +81,15 @@ MANDATORY RULES:
    - For [PROJECTS_LIST], create a list using \\resumeItem{{...}} or similar.
         Format: \\textbf{{Project Name}} $|$ \\emph{{Link/Tech}} \\\\ Description.
    - For [SKILLS_LIST], produce a comma-separated list.
-   - For [LANGUAGES_LIST], include languages with proficiency labels (e.g., English (Fluent)).
+   - For [LANGUAGES_LIST], include languages with proficiency labels (e.g., English (Fluent) or Anglais (Courant)).
    - For [CERTIFICATIONS_LIST], use:
         \\textbf{{Name}} -- Issuer (Year or Date)
 
-4. **Missing Information**
-   - If a field is missing or empty, omit the line gracefully but keep the section structure valid.
+4. **Missing Information - CRITICAL**
+   - **DO NOT INVENT DATA**. If a section (Experience, Education, Projects, Certifications) is empty in the USER DATA, **DO NOT GENERATE IT**.
+   - If the user provides no experience, the Experience section in the CV must be empty.
+   - Do not fill empty fields with placeholders like "Company Name" or "Job Title".
+   - If a specific field (e.g., date) is missing, omit it. Do not guess.
 
 5. **LaTeX Safety**
    - Escape all LaTeX-sensitive characters: &, %, $, #, _, {{, }}, ^, ~.
