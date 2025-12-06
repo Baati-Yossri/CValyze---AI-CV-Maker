@@ -96,10 +96,10 @@
     </header>
 
     <main class="container mx-auto p-4 md:p-8 pb-24">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="max-w-4xl mx-auto">
 
-            <!-- Left Panel: Form -->
-            <div class="lg:col-span-8 flex flex-col gap-4">
+            <!-- Form Container -->
+            <div id="form-container" class="flex flex-col gap-4">
 
                 <!-- Personal Info -->
                 <details
@@ -280,25 +280,6 @@
                     </div>
                 </details>
 
-            </div>
-
-            <!-- Right Panel: Live CV Preview -->
-            <div class="lg:col-span-4 sticky top-24 h-[calc(100vh-8rem)]">
-                <div
-                    class="h-full flex flex-col gap-4 rounded-lg bg-panel-light dark:bg-panel-dark border border-border-light dark:border-border-dark shadow-sm p-4">
-                    <div
-                        class="flex items-center justify-between border-b border-border-light dark:border-border-dark pb-3">
-                        <h3 class="font-semibold text-text-light dark:text-text-dark">Live Preview</h3>
-                    </div>
-                    <div class="flex-1 bg-background-light dark:bg-background-dark rounded-md overflow-y-auto p-6">
-                        <div
-                            class="w-full h-full text-center text-subtle-light dark:text-subtle-dark flex flex-col justify-center items-center">
-                            <span class="material-symbols-outlined text-6xl opacity-50">visibility</span>
-                            <p class="mt-4 font-medium">Your CV will appear here</p>
-                            <p class="text-sm">Fill in details and click Generate CV.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </main>
