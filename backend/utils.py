@@ -125,11 +125,19 @@ def compile_latex_to_pdf(latex_code):
     Compiles LaTeX code to PDF using pdflatex.
     Returns the path to the generated PDF or None if failed.
     """
+    miktex_bin_dir = r"C:\Users\GIGABYTE\AppData\Local\Programs\MiKTeX\miktex\bin\x64"
+    pdflatex_cmd = os.path.join(miktex_bin_dir, 'pdflatex.exe')
+    
+    # Verify executable exists
+    if not os.path.exists(pdflatex_cmd):
+        print(f"Error: pdflatex executable not found at {pdflatex_cmd}")
+        return None
+
     try:
-        # Check if pdflatex is available
-        subprocess.run(['pdflatex', '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        print("pdflatex not found.")
+        # Check if pdflatex is available using full path
+        subprocess.run([pdflatex_cmd, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        print(f"pdflatex execution failed: {e}")
         return None
 
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -141,7 +149,7 @@ def compile_latex_to_pdf(latex_code):
             
         try:
             # Run pdflatex twice to resolve references if needed
-            subprocess.run(['pdflatex', '-interaction=nonstopmode', '-output-directory', temp_dir, tex_path], 
+            subprocess.run([pdflatex_cmd, '-interaction=nonstopmode', '-output-directory', temp_dir, tex_path], 
                            check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             
             # Move the PDF to a persistent location (or return bytes, but file path is easier for Flask send_file)
